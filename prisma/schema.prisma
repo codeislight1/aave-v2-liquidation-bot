@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model UserReserves {
+  id          Int           @id @default(autoincrement()) // user address
+  userAddress String        @unique
+  reserves    UserReserve[]
+}
+
+model UserReserve {
+  id                             Int          @id @default(autoincrement())
+  reserveAddress                 String // reserve address
+  scaledInterestBalance          String
+  scaledVariableDebt             String
+  usageAsCollateralEnabledOnUser Boolean
+  userReservesId                 Int
+  userReserveReference           UserReserves @relation(fields: [userReservesId], references: [id])
+}
+
+model Reserve {
+  underlyingAsset                String  @unique // reserve address
+  name                           String
+  symbol                         String
+  decimals                       String
+  baseLTVasCollateral            String
+  reserveLiquidationThreshold    String
+  reserveLiquidationBonus        String
+  reserveFactor                  String
+  usageAsCollateralEnabled       Boolean
+  borrowingEnabled               Boolean
+  stableBorrowRateEnabled        Boolean
+  isActive                       Boolean
+  isFrozen                       Boolean
+  liquidityIndex                 String
+  variableBorrowIndex            String
+  liquidityRate                  String
+  variableBorrowRate             String
+  stableBorrowRate               String
+  normalizedInterestBalance      String
+  normalizedDebtVariable         String
+  lastUpdateTimestamp            String
+  aTokenAddress                  String
+  stableDebtTokenAddress         String
+  variableDebtTokenAddress       String
+  interestRateStrategyAddress    String
+  availableLiquidity             String
+  totalPrincipalStableDebt       String
+  averageStableRate              String
+  stableDebtLastUpdateTimestamp  String
+  totalScaledVariableDebt        String
+  priceInMarketReferenceCurrency String
+  priceOracle                    String
+  variableRateSlope1             String
+  variableRateSlope2             String
+  stableRateSlope1               String
+  stableRateSlope2               String
+  baseStableBorrowRate           String
+  baseVariableBorrowRate         String
+  optimalUsageRatio              String
+  isPaused                       Boolean
+  isSiloedBorrowing              Boolean
+  accruedToTreasury              String
+  unbacked                       String
+  isolationModeTotalDebt         String
+  flashLoanEnabled               Boolean
+  debtCeiling                    String
+  debtCeilingDecimals            String
+  eModeCategoryId                String
+  borrowCap                      String
+  supplyCap                      String
+  eModeLtv                       String
+  eModeLiquidationThreshold      String
+  eModeLiquidationBonus          String
+  eModePriceSource               String
+  eModeLabel                     String
+  borrowableInIsolation          Boolean
+}
