@@ -1,4 +1,4 @@
-# Aave V2 positions bot
+# Aave V2 liqudation bot
 
 ![image info](./imgs/background.jpg)
 
